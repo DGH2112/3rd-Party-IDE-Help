@@ -1,0 +1,12 @@
+/**
+
+  This files contains Windows Resource statements for adding images to the plug-in binary.
+
+  @Author  David Hoyle
+  @Version 1.0
+  @Date    02 Oct 2018
+
+**/
+TPHelpSplashScreen24x24   BITMAP "Images\TPHelpSplashScreen24x24.bmp"
+TPHelpSplashScreen48x48   BITMAP "Images\TPHelpSplashScreen48x48.bmp"
+
