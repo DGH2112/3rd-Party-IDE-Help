@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    02 Oct 2018
+  @Date    03 Oct 2018
   
 **)
 Unit TPIDEHelp.AboutBox;
@@ -22,9 +22,9 @@ Implementation
 
 Uses
   ToolsAPI,
-  SysUtils,
-  Forms,
-  Windows,
+  System.SysUtils,
+  VCL.Forms,
+  WinAPI.Windows,
   TPIDEHelp.Functions,
   TPIDEHelp.ResourceStrings;
 

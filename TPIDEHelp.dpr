@@ -22,7 +22,12 @@ uses
   TPIDEHelp.SplashScreen in 'Source\TPIDEHelp.SplashScreen.pas',
   TPIDEHelp.Functions in 'Source\TPIDEHelp.Functions.pas',
   TPIDEHelp.AboutBox in 'Source\TPIDEHelp.AboutBox.pas',
-  TPIDEHelp.ResourceStrings in 'Source\TPIDEHelp.ResourceStrings.pas';
+  TPIDEHelp.ResourceStrings in 'Source\TPIDEHelp.ResourceStrings.pas',
+  TPIDEHelp.AddinOptions in 'Source\TPIDEHelp.AddinOptions.pas',
+  TPIDEHelp.IDEOptionsFrame in 'Source\TPIDEHelp.IDEOptionsFrame.pas' {frameTPIDEHelpOptions: TFrame},
+  TPIDEHelp.Interfaces in 'Source\TPIDEHelp.Interfaces.pas',
+  TPIDEHelp.HelpEntryForm in 'Source\TPIDEHelp.HelpEntryForm.pas' {frmHelpEntry},
+  TPIDEHelp.ToolsAPIFunctions in 'Source\TPIDEHelp.ToolsAPIFunctions.pas';
 
 {$R *.res}
 

@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    02 Oct 2018
+  @Date    03 Oct 2018
   
 **)
 Unit TPIDEHelp.Functions;
@@ -29,7 +29,7 @@ Const
 Implementation
 
 Uses
-  Windows;
+  WinAPI.Windows;
 
 (**
 

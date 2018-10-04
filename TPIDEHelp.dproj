@@ -2,7 +2,7 @@
     <PropertyGroup>
         <ProjectGuid>{75DA38C3-7983-47F5-8C2B-D4686458AA0A}</ProjectGuid>
         <ProjectVersion>18.5</ProjectVersion>
-        <FrameworkType>None</FrameworkType>
+        <FrameworkType>VCL</FrameworkType>
         <MainSource>TPIDEHelp.dpr</MainSource>
         <Base>True</Base>
         <Config Condition="'$(Config)'==''">Debug</Config>
@@ -49,15 +49,17 @@
         <DCC_F>false</DCC_F>
         <DCC_K>false</DCC_K>
         <GenDll>true</GenDll>
-        <DCC_Namespace>System;VCL;WinAPI;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_Namespace>System;VCL;WinAPI;Vcl.Imaging;Vcl.Touch;Vcl.Samples;Vcl.Shell;$(DCC_Namespace)</DCC_Namespace>
         <SanitizedProjectName>TPIDEHelp</SanitizedProjectName>
         <UsePackages>true</UsePackages>
         <DCC_UsePackage>VCL;RTL;DesignIDE;$(DCC_UsePackage)</DCC_UsePackage>
         <VerInfo_Locale>2057</VerInfo_Locale>
         <VerInfo_Keys>CompanyName=;FileDescription=$(MSBuildProjectName);FileVersion=1.0.0.0;InternalName=;LegalCopyright=;LegalTrademarks=;OriginalFilename=;ProgramID=com.embarcadero.$(MSBuildProjectName);ProductName=$(MSBuildProjectName);ProductVersion=1.0.0.0;Comments=</VerInfo_Keys>
+        <DCC_SYMBOL_PLATFORM>false</DCC_SYMBOL_PLATFORM>
+        <DCC_UNIT_PLATFORM>false</DCC_UNIT_PLATFORM>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Base_Win32)'!=''">
-        <DCC_Namespace>Winapi;System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
+        <DCC_Namespace>System.Win;Data.Win;Datasnap.Win;Web.Win;Soap.Win;Xml.Win;Bde;$(DCC_Namespace)</DCC_Namespace>
         <BT_BuildType>Debug</BT_BuildType>
         <Manifest_File>(None)</Manifest_File>
         <VerInfo_Locale>1033</VerInfo_Locale>
@@ -102,6 +104,18 @@
         <DCCReference Include="Source\TPIDEHelp.Functions.pas"/>
         <DCCReference Include="Source\TPIDEHelp.AboutBox.pas"/>
         <DCCReference Include="Source\TPIDEHelp.ResourceStrings.pas"/>
+        <DCCReference Include="Source\TPIDEHelp.AddinOptions.pas"/>
+        <DCCReference Include="Source\TPIDEHelp.IDEOptionsFrame.pas">
+            <Form>frameTPIDEHelpOptions</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Source\TPIDEHelp.Interfaces.pas"/>
+        <DCCReference Include="Source\TPIDEHelp.HelpEntryForm.pas">
+            <Form>frmHelpEntry</Form>
+            <FormType>dfm</FormType>
+        </DCCReference>
+        <DCCReference Include="Source\TPIDEHelp.ToolsAPIFunctions.pas"/>
         <None Include="Source\CompilerDefinitions.inc"/>
         <None Include="Source\LibrarySuffixes.inc"/>
         <BuildConfiguration Include="Release">

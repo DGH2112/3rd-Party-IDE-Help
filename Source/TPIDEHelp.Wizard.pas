@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    02 Oct 2018
+  @Date    03 Oct 2018
 
 **)
 Unit TPIDEHelp.Wizard;
@@ -18,7 +18,8 @@ Type
   (** A class that implements the IOTAWizard interface for registering a wizard plugin with the IDE. **)
   TTPIDEHelpWizard = Class(TInterfacedObject, IOTAWizard)
   Strict Private
-    FAboutBox: Integer;
+    FAboutBox     : Integer;
+    FAddinOptions : INTAAddinOptions;
   Strict Protected
     Procedure Execute;
     Function  GetIDString: String;
@@ -44,8 +45,9 @@ Implementation
 
 
 Uses
+  System.SysUtils,
   TPIDEHelp.SplashScreen,
-  TPIDEHelp.AboutBox;
+  TPIDEHelp.AboutBox, TPIDEHelp.AddinOptions;
 
 (**
 
@@ -113,9 +115,15 @@ End;
 **)
 Constructor TTPIDEHelpWizard.Create;
 
+Var
+  EOS : INTAEnvironmentOptionsServices;
+
 Begin
   TTPHelpSplashScreen.AddSplashScreenItem;
   FAboutBox := TTPHelpAboutBox.AddAboutBox;
+  FAddinOptions := TTPHelpAddinOptions.Create;
+  If Supports(BorlandIDEServices, INTAEnvironmentOptionsServices, EOS) Then
+    EOS.RegisterAddInOptions(FAddinOptions);
 End;
 
 (**
@@ -128,7 +136,13 @@ End;
 **)
 Destructor TTPIDEHelpWizard.Destroy;
 
+Var
+  EOS : INTAEnvironmentOptionsServices;
+
 Begin
+  If Supports(BorlandIDEServices, INTAEnvironmentOptionsServices, EOS) Then
+    EOS.UnregisterAddInOptions(FAddinOptions);
+  FAddinOptions := Nil;
   TTPHelpAboutBox.RemoveAboutBox(FAboutBox);
   Inherited Destroy;
 End;
