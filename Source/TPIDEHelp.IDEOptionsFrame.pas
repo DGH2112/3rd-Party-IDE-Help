@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    04 Oct 2018
+  @Date    06 Oct 2018
 
 **)
 Unit TPIDEHelp.IDEOptionsFrame;
@@ -42,6 +42,8 @@ Type
     procedure btnEditClick(Sender: TObject);
     procedure btnDeleteClick(Sender: TObject);
     procedure btnAddClick(Sender: TObject);
+    procedure lvHelpCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState;
+      var DefaultDraw: Boolean);
   Strict Private
     Type
       (** An enumerate for identifying the type of help item. **)
@@ -77,7 +79,7 @@ Uses
   ToolsAPI,
   System.Win.Registry,
   System.RegularExpressions,
-  TPIDEHelp.HelpEntryForm;
+  TPIDEHelp.HelpEntryForm, TPIDEHelp.ToolsAPIFunctions;
 
 Const
   (** A constant for the registry location of the IDEs 3rd party help. **)
@@ -380,6 +382,28 @@ Begin
   End;
   PopulateListView;
   lvHelpSelectItem(lvHelp, Nil, False);
+End;
+
+(**
+
+  This is an on CustomDraweItem for the Help listview.
+
+  @precon  None.
+  @postcon Rendered and Help files that cannot be found in GrayText.
+
+  @param   Sender      as a TCustomListView
+  @param   Item        as a TListItem
+  @param   State       as a TCustomDrawState
+  @param   DefaultDraw as a Boolean as a reference
+
+**)
+Procedure TframeTPIDEHelpOptions.lvHelpCustomDrawItem(Sender: TCustomListView; Item: TListItem;
+  State: TCustomDrawState; Var DefaultDraw: Boolean);
+
+Begin
+  Sender.Canvas.Font.Color := TTPHelpToolsAPIFunctions.ThemeColour(clWindowText);
+  If Not FileExists(Item.SubItems[0]) Then
+    Sender.Canvas.Font.Color := TTPHelpToolsAPIFunctions.ThemeColour(clGrayText);
 End;
 
 (**

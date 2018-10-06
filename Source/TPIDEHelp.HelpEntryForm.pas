@@ -5,7 +5,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    04 Oct 2018
+  @Date    06 Oct 2018
   
 **)
 Unit TPIDEHelp.HelpEntryForm;
@@ -70,8 +70,19 @@ Uses
 **)
 Procedure TfrmHelpEntry.btnBrowseClick(Sender: TObject);
 
+Var
+  strPath: String;
+
 
 Begin
+  strPath := ExtractFilePath(edtFilename.Text);
+  While Not DirectoryExists(strPath)  Do
+    Begin
+      If (Length(strPath) > 0) And (strPath[Length(strPath)] = '\') Then
+        Delete(strPath, Length(strPath), 1);
+      strPath := ExtractFilePath(strPath);
+    End;
+ dlgFileOpen.DefaultFolder := strPath;
   If dlgFileOpen.Execute Then
     Begin
       edtFilename.Text := dlgFileOpen.FileName;

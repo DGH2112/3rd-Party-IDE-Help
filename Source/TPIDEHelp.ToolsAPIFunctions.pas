@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    03 Oct 2018
+  @Date    06 Oct 2018
   
 **)
 Unit TPIDEHelp.ToolsAPIFunctions;
@@ -16,6 +16,7 @@ Interface
 
 Uses
   System.Classes,
+  VCL.Graphics,
   VCL.Forms;
 
 Type
@@ -23,6 +24,7 @@ Type
   TTPHelpToolsAPIFunctions = Record
     Class Procedure RegisterFormForTheming(Const FormCls: TCustomFormClass); Static;
     Class Procedure ApplyThemeToComponent(Const AComponent: TComponent); Static;
+    Class Function  ThemeColour(Const iColour : TColor) : TColor; Static;
   End;
 
 Implementation
@@ -79,6 +81,33 @@ Begin
   If Supports(BorlandIDEServices, IOTAIDEThemingServices250, ITS) Then
     If ITS.IDEThemingEnabled Then
       ITS.RegisterFormClass(FormCls);
+  {$ENDIF}
+End;
+
+(**
+
+  This method returns the themed system colour for the given colour IF theming is avaiulable and enabled.
+
+  @precon  None.
+  @postcon The themd colour is returned if theming is available and enabled.
+
+  @param   iColour as a TColor as a constant
+  @return  a TColor
+
+**)
+Class Function TTPHelpToolsAPIFunctions.ThemeColour(Const iColour: TColor): TColor;
+
+{$IFDEF DXE102}
+Var
+  ITS: IOTAIDEThemingServices250;
+{$ENDIF}
+
+Begin
+  Result := iColour;
+  {$IFDEF DXE102}
+  If Supports(BorlandIDEServices, IOTAIDEThemingServices, ITS) Then
+    If ITS.IDEThemingEnabled Then
+      Result := ITS.StyleServices.GetSystemColor(iColour);
   {$ENDIF}
 End;
 

@@ -3,11 +3,13 @@ object frameTPIDEHelpOptions: TframeTPIDEHelpOptions
   Top = 0
   Width = 550
   Height = 329
+  DoubleBuffered = True
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -13
   Font.Name = 'Tahoma'
   Font.Style = []
+  ParentDoubleBuffered = False
   ParentFont = False
   TabOrder = 0
   DesignSize = (
@@ -67,11 +69,14 @@ object frameTPIDEHelpOptions: TframeTPIDEHelpOptions
         AutoSize = True
         Caption = 'Filename'
       end>
+    GridLines = True
     HideSelection = False
     ReadOnly = True
     RowSelect = True
     TabOrder = 3
     ViewStyle = vsReport
+    OnCustomDrawItem = lvHelpCustomDrawItem
+    OnDblClick = btnEditClick
     OnSelectItem = lvHelpSelectItem
   end
   object ilButtons: TImageList
