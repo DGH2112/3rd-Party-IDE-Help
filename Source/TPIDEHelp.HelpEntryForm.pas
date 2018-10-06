@@ -76,7 +76,7 @@ Var
 
 Begin
   strPath := ExtractFilePath(edtFilename.Text);
-  While Not DirectoryExists(strPath)  Do
+  While (Length(strPath) > 0) and Not DirectoryExists(strPath)  Do
     Begin
       If (Length(strPath) > 0) And (strPath[Length(strPath)] = '\') Then
         Delete(strPath, Length(strPath), 1);
