@@ -116,6 +116,8 @@
             <FormType>dfm</FormType>
         </DCCReference>
         <DCCReference Include="Source\TPIDEHelp.ToolsAPIFunctions.pas"/>
+        <DCCReference Include="Source\TPIDEHelp.CustomHelpList.pas"/>
+        <DCCReference Include="Source\TPIDEHelp.UpdateCustomHelpActions.pas"/>
         <None Include="Source\CompilerDefinitions.inc"/>
         <None Include="Source\LibrarySuffixes.inc"/>
         <BuildConfiguration Include="Release">

@@ -20,7 +20,6 @@ Uses
   System.Variants,
   System.Classes,
   System.ImageList,
-  System.Generics.Collections,
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Forms,
@@ -45,27 +44,14 @@ Type
     procedure lvHelpCustomDrawItem(Sender: TCustomListView; Item: TListItem; State: TCustomDrawState;
       var DefaultDraw: Boolean);
   Strict Private
-    Type
-      (** An enumerate for identifying the type of help item. **)
-      TTPHHelpType = (htEbmt, ht3rdParty, htDelete);
-      (** A record to describe the help items in the registry. **)
-      THelpRecord = Record
-        FOldName  : String;
-        FNewName  : String;
-        FFilename : String;
-        FHelpType : TTPHHelpType;
-        Constructor Create(Const strName, strFilename : String; Const eHelpType : TTPHHelpType);
-      End;
   Strict Private
-    FHelp : TList<THelpRecord>;
+    FHelpList : ITPHCustomHelpList;
   Strict Protected
     // ITPHelpOptionsFrame
     Procedure InitialiseFrame;
     Procedure FinaliseFrame;
     // General Methods
     Procedure PopulateListView;
-    Function  GetIDEVersionNum(Const strBDSDir : String) : String;
-    Function  GetIDERegPoint() : String;
   Public
     Constructor Create(AOwner : TComponent); Override;
     Destructor Destroy; Override;
@@ -77,39 +63,9 @@ Implementation
 
 Uses
   ToolsAPI,
-  System.Win.Registry,
-  System.RegularExpressions,
-  TPIDEHelp.HelpEntryForm, TPIDEHelp.ToolsAPIFunctions;
-
-Const
-  (** A constant for the registry location of the IDEs 3rd party help. **)
-  strHelpRegKey = 'Software\Embarcadero\%s\%s\Help';
-  (** A constant for the custom 2td party HTML file entries. **)
-  strHTMLHelpFiles = 'HTMLHelp1Files';
-  (** A constant for the RAD Studio IDE base directory environment variable. **)
-  strBDSEnviroVar = 'BDS';
-
-(**
-
-  A constructor for the THelpRecord class.
-
-  @precon  None.
-  @postcon Initalises the record.
-
-  @param   strName     as a String as a constant
-  @param   strFilename as a String as a constant
-  @param   eHelpType   as a TTPHHelpType as a constant
-
-**)
-Constructor TframeTPIDEHelpOptions.THelpRecord.Create(Const strName, strFilename : String;
-  Const eHelpType : TTPHHelpType);
-
-Begin
-  FOldName  := strName;
-  FNewName  := strName;
-  FFilename := strFilename;
-  FHelpType := eHelpType;
-End;
+  TPIDEHelp.HelpEntryForm,
+  TPIDEHelp.ToolsAPIFunctions,
+  TPIDEHelp.CustomHelpList;
 
 (**
 
@@ -125,27 +81,15 @@ procedure TframeTPIDEHelpOptions.btnAddClick(Sender: TObject);
 
 Var
   strName, strFileName : String;
-  R: THelpRecord;
-  slIDENames: TStringList;
-  iHelp: Integer;
 
 begin
   strName := '';
   strFileName := '';
-  slIDENames := TStringList.Create;
-  Try
-    For iHelp := 0 To FHelp.Count - 1 Do
-      If FHelp[iHelp].FHelpType = htEbmt Then
-        slIDENames.Add(fHelp[iHelp].FOldName);
-    If TfrmHelpEntry.Execute(strName, strFileName, slIDENames) Then
-      Begin
-        R.Create(strName, strFileName, ht3rdParty);
-        FHelp.Add(R);
-        PopulateListView;
-      End;
-  Finally
-    slIDENames.Free;
-  End;
+  If TfrmHelpEntry.Execute(strName, strFileName, FHelpList.UsedHelpNames) Then
+    Begin
+      FHelpList.Add(strName, strFileName);
+      PopulateListView;
+    End;
 end;
 
 (**
@@ -160,15 +104,8 @@ end;
 **)
 Procedure TframeTPIDEHelpOptions.btnDeleteClick(Sender: TObject);
 
-Var
-  iIndex: Integer;
-  R: THelpRecord;
-
 Begin
-  iIndex := Integer(lvHelp.Selected.Data);
-  R := FHelp[iIndex];
-  R.FHelpType := htDelete;
-  FHelp[iIndex] := R;
+  FHelpList.Delete(lvHelp.Selected.Caption);
   PopulateListView;
 End;
 
@@ -185,32 +122,17 @@ End;
 Procedure TframeTPIDEHelpOptions.btnEditClick(Sender: TObject);
 
 Var
-  strName, strFileName : String;
-  iIndex: Integer;
-  R: THelpRecord;
-  slIDENames: TStringList;
-  iHelp: Integer;
+  strOldName, strNewName, strFileName : String;
 
 Begin
-  iIndex := Integer(lvHelp.Selected.Data);
-  strName := FHelp[iIndex].FNewName;
-  strFileName := FHelp[iIndex].FFilename;
-  slIDENames := TStringList.Create;
-  Try
-    For iHelp := 0 To FHelp.Count - 1 Do
-      If FHelp[iHelp].FHelpType = htEbmt Then
-        slIDENames.Add(fHelp[iHelp].FOldName);
-    If TfrmHelpEntry.Execute(strName, strFileName, slIDENames) Then
-      Begin
-        R := FHelp[iIndex];
-        R.FNewName := strName;
-        R.FFilename := strFileName;
-        FHelp[iIndex] := R;
-        PopulateListView;
-      End;
-  Finally
-    slIDENames.Free;
-  End;
+  strOldName := lvHelp.Selected.Caption;
+  strNewName := strOldName;
+  strFileName := FHelpList.Filename[strOldName];
+  If TfrmHelpEntry.Execute(strNewName, strFileName, FHelpList.UsedHelpNames) Then
+    Begin
+      FHelpList.Update(strOldName, strNewName, strFileName);
+      PopulateListView;
+    End;
 End;
 
 (**
@@ -229,7 +151,7 @@ Constructor TframeTPIDEHelpOptions.Create(AOwner : TComponent);
 
 Begin
   Inherited Create(AOwner);
-  FHelp := TList<THelpRecord>.Create;
+  FHelpList := TTPHCustomHelpList.Create;
 End;
 
 (**
@@ -243,7 +165,7 @@ End;
 Destructor TframeTPIDEHelpOptions.Destroy;
 
 Begin
-  FHelp.Free;
+  FHelpList := Nil;
   Inherited Destroy;
 End;
 
@@ -255,90 +177,12 @@ End;
   @precon  None.
   @postcon The RAD Studio registry is updated with the list of custom help information.
 
+  @nocheck EmptyMethod
+
 **)
 Procedure TframeTPIDEHelpOptions.FinaliseFrame;
 
-Var
-  iHelp: Integer;
-  strBDSDir: String;
-  R: TRegIniFile;
-
 Begin
-  strBDSDir := System.SysUtils.GetEnvironmentVariable(strBDSEnviroVar);
-  R := TRegIniFile.Create(Format(strHelpRegKey, [GetIDERegPoint(), GetIDEVersionNum(strBDSDir)]));
-  Try
-    For iHelp := 0 To FHelp.Count - 1 Do
-      Case FHelp[iHelp].FHelpType Of
-        htDelete: R.DeleteKey(strHTMLHelpFiles, FHelp[iHelp].FOldName);
-        ht3rdParty:
-          If CompareText(FHelp[iHelp].FOldName, FHelp[iHelp].FNewName) <> 0 Then
-            Begin
-              R.DeleteKey(strHTMLHelpFiles, FHelp[iHelp].FOldName);
-              R.WriteString(strHTMLHelpFiles, FHelp[iHelp].FNewName, FHelp[iHelp].FFilename);
-            End Else
-          If CompareText(FHelp[iHelp].FFilename,
-            R.ReadString(strHTMLHelpFiles, FHelp[iHelp].FOldName, '')) <> 0 Then
-            R.WriteString(strHTMLHelpFiles, FHelp[iHelp].FOldName, FHelp[iHelp].FFilename);
-      End;
-  Finally
-    R.Free;
-  End;
-End;
-
-(**
-
-  This method searches the IDEs command line parameters for an alternate registration point (-rXxxxx)
-  and returns that alternate point instead of the standard BDS if found.
-
-  @precon  None.
-  @postcon Returns the activty IDEs registration point.
-
-  @return  a String
-
-**)
-Function TframeTPIDEHelpOptions.GetIDERegPoint: String;
-
-Const
-  strDefaultRegPoint = 'BDS';
-  iSwitchLen = 2;
-
-Var
-  iParam: Integer;
-
-Begin
-  Result := strDefaultRegPoint;
-  For iParam := 1 To ParamCount Do
-    If CompareText(Copy(ParamStr(iParam), 1, iSwitchLen), '-r') = 0 Then
-      Begin
-        Result := ParamStr(iParam);
-        Delete(Result, 1, iSwitchLen);
-        Break;
-      End;
-End;
-
-(**
-
-  This method returns the IDEs version number from the end of the BDS environment variable passed.
-
-  @precon  None.
-  @postcon the version number is returned.
-
-  @param   strBDSDir as a String as a constant
-  @return  a String
-
-**)
-Function TframeTPIDEHelpOptions.GetIDEVersionNum(Const strBDSDir: String): String;
-
-Var
-  RegEx : TRegEx;
-  M: TMatch;
-
-Begin
-  Result := '0.0';
-  RegEx := TRegEx.Create('\d+\.\d', [roIgnoreCase, roCompiled, roSingleLine]);
-  M := RegEx.Match(strBDSDir);
-  If M.Success Then
-    Result := M.Value;
 End;
 
 (**
@@ -351,35 +195,7 @@ End;
 **)
 Procedure TframeTPIDEHelpOptions.InitialiseFrame;
 
-Var
-  R : TRegIniFile;
-  slHelp: TStringList;
-  iHelp: Integer;
-  strBDSDir: String;
-  strFileName: String;
-  eHelpType: TTPHHelpType;
-
 Begin
-  strBDSDir := System.SysUtils.GetEnvironmentVariable(strBDSEnviroVar);
-  R := TRegIniFile.Create(Format(strHelpRegKey, [GetIDERegPoint(), GetIDEVersionNum(strBDSDir)]));
-  Try
-    slHelp := TStringList.Create;
-    Try
-      R.ReadSection(strHTMLHelpFiles, slHelp);
-      For iHelp := 0 To slHelp.Count - 1 Do
-        Begin
-          strFileName := R.ReadString(strHTMLHelpFiles, slHelp[iHelp], '');
-          eHelpType := ht3rdParty;
-          If CompareText(Copy(strFilename, 1, Length(strBDSDir)), strBDSDir) = 0 Then
-            eHelpType := htEbmt;
-          FHelp.Add(THelpRecord.Create(slHelp[iHelp], strFileName, eHelpType));
-        End;
-    Finally
-      slHelp.Free;
-    End;
-  Finally
-    R.Free;
-  End;
   PopulateListView;
   lvHelpSelectItem(lvHelp, Nil, False);
 End;
@@ -445,14 +261,12 @@ Begin
   Try
     iSelectedIndex := lvHelp.ItemIndex;
     lvHelp.Clear;
-    For iHelp := 0 To FHelp.Count - 1 Do
-      If FHelp[iHelp].FHelpType In [ht3rdParty] Then
-        Begin
-          Item := lvHelp.Items.Add;
-          Item.Caption := FHelp[iHelp].FNewName;
-          Item.SubItems.Add(FHelp[iHelp].FFilename);
-          Item.Data := Pointer(iHelp);
-        End;
+    For iHelp := 0 To FHelpList.Count - 1 Do
+      Begin
+        Item := lvHelp.Items.Add;
+        Item.Caption := FHelpList.Name[iHelp];
+        Item.SubItems.Add(FHelpList.Filename[Item.Caption]);
+      End;
     If iSelectedIndex >= lvHelp.items.Count Then
       iSelectedIndex := lvHelp.Items.Count - 1;
     lvHelp.ItemIndex := iSelectedIndex;

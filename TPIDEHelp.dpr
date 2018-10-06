@@ -27,7 +27,9 @@ uses
   TPIDEHelp.IDEOptionsFrame in 'Source\TPIDEHelp.IDEOptionsFrame.pas' {frameTPIDEHelpOptions: TFrame},
   TPIDEHelp.Interfaces in 'Source\TPIDEHelp.Interfaces.pas',
   TPIDEHelp.HelpEntryForm in 'Source\TPIDEHelp.HelpEntryForm.pas' {frmHelpEntry},
-  TPIDEHelp.ToolsAPIFunctions in 'Source\TPIDEHelp.ToolsAPIFunctions.pas';
+  TPIDEHelp.ToolsAPIFunctions in 'Source\TPIDEHelp.ToolsAPIFunctions.pas',
+  TPIDEHelp.CustomHelpList in 'Source\TPIDEHelp.CustomHelpList.pas',
+  TPIDEHelp.UpdateCustomHelpActions in 'Source\TPIDEHelp.UpdateCustomHelpActions.pas';
 
 {$R *.res}
 
