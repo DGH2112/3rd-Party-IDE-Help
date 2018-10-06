@@ -177,12 +177,11 @@ End;
   @precon  None.
   @postcon The RAD Studio registry is updated with the list of custom help information.
 
-  @nocheck EmptyMethod
-
 **)
 Procedure TframeTPIDEHelpOptions.FinaliseFrame;
 
 Begin
+  FHelpList.SaveListChanges;
 End;
 
 (**

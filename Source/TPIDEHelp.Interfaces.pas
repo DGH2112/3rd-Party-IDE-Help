@@ -38,6 +38,7 @@ Type
     Procedure Add(Const strName, strFileName : String);
     Procedure Update(Const strOldName, strNewName, strFileName : String);
     Procedure Delete(Const strName : String);
+    Procedure SaveListChanges;
     (**
       This method returns a string list of IDE Help names already used.
       @precon  None.

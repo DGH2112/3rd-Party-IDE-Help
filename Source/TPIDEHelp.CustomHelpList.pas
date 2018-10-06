@@ -44,6 +44,7 @@ Type
     Procedure Add(Const strName: String; Const strFilename: String);
     Procedure Update(Const strOldName, strNewName, strFileName : String);
     Procedure Delete(Const strName: String);
+    Procedure SaveListChanges;
     // General Methods
     Procedure LoadCustomHelp;
     Procedure SaveCustomHelp;
@@ -163,7 +164,6 @@ End;
 Destructor TTPHCustomHelpList.Destroy;
 
 Begin
-  SaveCustomHelp;
   FUsedHelpNames.Free;
   FCustomHelp.Free;
   Inherited Destroy;
@@ -422,6 +422,20 @@ Begin
   Finally
     R.Free;
   End;
+End;
+
+(**
+
+  This method saves the changes made to the list of custom third party help file.
+
+  @precon  None.
+  @postcon The changes are saved back to the registry.
+
+**)
+Procedure TTPHCustomHelpList.SaveListChanges;
+
+Begin
+  SaveCustomHelp;
 End;
 
 (**
