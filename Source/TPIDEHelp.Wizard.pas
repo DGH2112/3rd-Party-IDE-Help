@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    06 Oct 2018
+  @Date    13 Oct 2018
 
 **)
 Unit TPIDEHelp.Wizard;
@@ -17,7 +17,7 @@ Uses
 
 Type
   (** A class that implements the IOTAWizard interface for registering a wizard plugin with the IDE. **)
-  TTPIDEHelpWizard = Class(TInterfacedObject, IOTAWizard)
+  TTPIDEHelpWizard = Class(TInterfacedObject, IUnknown, IOTANotifier, IOTAWizard)
   Strict Private
     FAboutBox                : Integer;
     FAddinOptions            : INTAAddinOptions;

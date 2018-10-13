@@ -5,7 +5,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    06 Oct 2018
+  @Date    13 Oct 2018
   
 **)
 Unit TPIDEHelp.AddinOptions;
@@ -21,7 +21,7 @@ Uses
 Type
   (** A class wihc implements the INTAAddinOptions interface dor adding a frame to the IDEs options
       dialogue. **)
-  TTPHelpAddinOptions = Class(TInterfacedObject, INTAAddInOptions)
+  TTPHelpAddinOptions = Class(TInterfacedObject, IUnknown, INTAAddInOptions)
   Strict Private
     FFrame             : TframeTPIDEHelpOptions;
     FUpdateHelpActions : ITPHelpUpdateHelpAction;
