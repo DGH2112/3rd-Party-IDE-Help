@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    06 Oct 2018
+  @Date    24 Nov 2018
 
 **)
 Unit TPIDEHelp.IDEOptionsFrame;
@@ -19,7 +19,6 @@ Uses
   System.SysUtils,
   System.Variants,
   System.Classes,
-  System.ImageList,
   Vcl.Graphics,
   Vcl.Controls,
   Vcl.Forms,

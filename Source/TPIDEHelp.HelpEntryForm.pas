@@ -5,7 +5,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    06 Oct 2018
+  @Date    24 Nov 2018
   
 **)
 Unit TPIDEHelp.HelpEntryForm;
@@ -25,8 +25,8 @@ Uses
   Vcl.Forms,
   Vcl.Dialogs,
   Vcl.StdCtrls,
-  System.ImageList,
-  Vcl.ImgList, Vcl.ExtCtrls;
+  Vcl.ImgList,
+  Vcl.ExtCtrls;
 
 Type
   (** A form class to allow the editing of a CHM file. **)
