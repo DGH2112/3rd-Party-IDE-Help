@@ -4,3 +4,7 @@ Win32/
 *.local
 *.identcache
 *.stat
+DCUs/
+*.dll
+.watch
+*.dsk

@@ -5,7 +5,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    03 Oct 2018
+  @Date    13 Oct 2018
   
 **)
 Unit TPIDEHelp.AddinOptions;
@@ -15,14 +15,16 @@ Interface
 Uses
   ToolsAPI,
   VCL.Forms,
+  TPIDEHelp.Interfaces,
   TPIDEHelp.IDEOptionsFrame;
 
 Type
   (** A class wihc implements the INTAAddinOptions interface dor adding a frame to the IDEs options
       dialogue. **)
-  TTPHelpAddinOptions = Class(TInterfacedObject, INTAAddInOptions)
+  TTPHelpAddinOptions = Class(TInterfacedObject, IUnknown, INTAAddInOptions)
   Strict Private
-    FFrame : TframeTPIDEHelpOptions;
+    FFrame             : TframeTPIDEHelpOptions;
+    FUpdateHelpActions : ITPHelpUpdateHelpAction;
   Strict Protected
     Procedure DialogClosed(Accepted: Boolean);
     Procedure FrameCreated(AFrame: TCustomFrame);
@@ -33,13 +35,30 @@ Type
     Function  IncludeInIDEInsight: Boolean;
     Function  ValidateContents: Boolean;
   Public
+    Constructor Create(Const UpdateHelpActions : ITPHelpUpdateHelpAction);
   End;
 
 Implementation
 
 Uses
-  System.SysUtils,
-  TPIDEHelp.Interfaces;
+  System.SysUtils;
+
+(**
+
+  A constructor for the TTPHelpAddinOptions class.
+
+  @precon  None.
+  @postcon Stores a reference to the UpdateHelpAction so they can be rebuilt is the options change.
+
+  @param   UpdateHelpActions as an ITPHelpUpdateHelpAction as a constant
+
+**)
+Constructor TTPHelpAddinOptions.Create(Const UpdateHelpActions: ITPHelpUpdateHelpAction);
+
+Begin
+  Inherited Create;
+  FUpdateHelpActions := UpdateHelpActions;
+End;
 
 (**
 
@@ -61,7 +80,10 @@ Var
 Begin
   If Accepted Then
     If Supports(FFrame, ITPHelpOptionsFrame, OpsFrame) Then
-      OpsFrame.FinaliseFrame;
+      Begin
+        OpsFrame.FinaliseFrame;
+        FUpdateHelpActions.CreateCustomHelpActions;
+      End;
 End;
 
 (**

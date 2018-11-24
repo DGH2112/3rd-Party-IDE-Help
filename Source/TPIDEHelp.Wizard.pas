@@ -4,7 +4,7 @@
 
   @Author  David Hoyle
   @Version 1.0
-  @Date    03 Oct 2018
+  @Date    13 Oct 2018
 
 **)
 Unit TPIDEHelp.Wizard;
@@ -12,14 +12,16 @@ Unit TPIDEHelp.Wizard;
 Interface
 
 Uses
-  ToolsAPI;
+  ToolsAPI,
+  TPIDEHelp.Interfaces;
 
 Type
   (** A class that implements the IOTAWizard interface for registering a wizard plugin with the IDE. **)
-  TTPIDEHelpWizard = Class(TInterfacedObject, IOTAWizard)
+  TTPIDEHelpWizard = Class(TInterfacedObject, IUnknown, IOTANotifier, IOTAWizard)
   Strict Private
-    FAboutBox     : Integer;
-    FAddinOptions : INTAAddinOptions;
+    FAboutBox                : Integer;
+    FAddinOptions            : INTAAddinOptions;
+    FUpdateCustomHelpActions : ITPHelpUpdateHelpAction;
   Strict Protected
     Procedure Execute;
     Function  GetIDString: String;
@@ -47,7 +49,9 @@ Implementation
 Uses
   System.SysUtils,
   TPIDEHelp.SplashScreen,
-  TPIDEHelp.AboutBox, TPIDEHelp.AddinOptions;
+  TPIDEHelp.AboutBox, 
+  TPIDEHelp.AddinOptions,
+  TPIDEHelp.UpdateCustomHelpActions;
 
 (**
 
@@ -121,7 +125,8 @@ Var
 Begin
   TTPHelpSplashScreen.AddSplashScreenItem;
   FAboutBox := TTPHelpAboutBox.AddAboutBox;
-  FAddinOptions := TTPHelpAddinOptions.Create;
+  FUpdateCustomHelpActions := TTPHelpUpdateCustomHelpActions.Create;
+  FAddinOptions := TTPHelpAddinOptions.Create(FUpdateCustomHelpActions);
   If Supports(BorlandIDEServices, INTAEnvironmentOptionsServices, EOS) Then
     EOS.RegisterAddInOptions(FAddinOptions);
 End;
