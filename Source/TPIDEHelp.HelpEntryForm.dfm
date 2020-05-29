@@ -3,7 +3,7 @@ object frmHelpEntry: TfrmHelpEntry
   Top = 0
   BorderIcons = [biSystemMenu]
   Caption = 'Help Entry'
-  ClientHeight = 105
+  ClientHeight = 101
   ClientWidth = 624
   Color = clBtnFace
   Constraints.MaxHeight = 140
@@ -22,13 +22,13 @@ object frmHelpEntry: TfrmHelpEntry
     Left = 0
     Top = 0
     Width = 624
-    Height = 105
+    Height = 101
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
     DesignSize = (
       624
-      105)
+      101)
     object lblName: TLabel
       Left = 8
       Top = 11
