@@ -3,7 +3,7 @@
   This module contains a frame for presenting the 3rd Part Help that is installed in the IDE.
 
   @Author  David Hoyle
-  @Version 1.099
+  @Version 1.129
   @Date    01 Jun 2020
 
   @license
@@ -236,9 +236,15 @@ Procedure TframeTPIDEHelpOptions.lvHelpCustomDrawItem(Sender: TCustomListView; I
   State: TCustomDrawState; Var DefaultDraw: Boolean);
 
 Begin
+  Sender.Canvas.Brush.Color := TTPHelpToolsAPIFunctions.ThemeColour(clWindow);
   Sender.Canvas.Font.Color := TTPHelpToolsAPIFunctions.ThemeColour(clWindowText);
   If Not FileExists(Item.SubItems[0]) Then
     Sender.Canvas.Font.Color := TTPHelpToolsAPIFunctions.ThemeColour(clGrayText);
+  If Item.Selected Then
+    Begin
+      Sender.Canvas.Brush.Color := TTPHelpToolsAPIFunctions.ThemeColour(clHighlight);
+      Sender.Canvas.Font.Color := TTPHelpToolsAPIFunctions.ThemeColour(clHighlightText);
+    End;
 End;
 
 (**
