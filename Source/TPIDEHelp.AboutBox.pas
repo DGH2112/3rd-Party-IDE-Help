@@ -83,7 +83,7 @@ Begin
       strAboutBoxDescription,
       bmAboutBox,
       {$IFDEF DEBUG} True {$ELSE} False {$ENDIF},
-      Format(strLicenseStatus, [recVersionInfo.FMajor, recVersionInfo.FMinor, recVersionInfo.FBugFix,
+      Format(strSplashScreenBuild, [recVersionInfo.FMajor, recVersionInfo.FMinor, recVersionInfo.FBugFix,
         recVersionInfo.FBuild])
     );
 End;

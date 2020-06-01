@@ -35,8 +35,13 @@ Interface
 ResourceString
   (** A resource string to the name of the aplug-in. **)
   str3rdPartyIDEHelpFor = '3rd Party IDE Help %d.%d%s for %s';
-  (** A resource string for the license of the plug-in. **)
-  strLicenseStatus = 'Freeware by David Hoyle (Build %d.%d.%d.%d)';
+  {$IFDEF DEBUG}
+  (** A resource string for the build information on the splash screen **)
+  strSplashScreenBuild = 'David Hoyle (c) 2020 License GNU GPL3 (DEBUG Build %d.%d.%d.%d)';
+  {$ELSE}
+  (** A resource string for the build information on the splash screen **)
+  strSplashScreenBuild = 'David Hoyle (c) 2020 License GNU GPL3 (Build %d.%d.%d.%d)';
+  {$ENDIF DEBUG}
 
 Implementation
 
