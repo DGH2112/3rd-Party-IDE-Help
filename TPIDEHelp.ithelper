@@ -7,28 +7,40 @@ IncludeInProject=1
 CompileWithBRCC32=0
 MajorVer=1
 MinorVer=0
-ReleaseVer=0
-BuildVer=137
+ReleaseVer=1
+BuildVer=159
 ResourceName=ITHVerInfo
 WarnBefore=0
 WarnAfter=0
 SaveModifiedFilesBeforeZipping=1
-
-[VersionInfo]
-CompanyName=Season's Fall Music
-FileDescription=A RAD Studio IDE Pliug-in for managing and accessing Third Party Help
-FileVersion=1.0.0.137
-InternalName=TPIDEHelp
-LegalCopyright=Season's Fall Music
-LegalTrademarks=Season's Fall Music
-OriginalFilename=TPIDEHelp
-ProductName=TPIDEHelp
-ProductVersion=1.0
-Comments=A RAD Studio IDE Pliug-in for managing and accessing Third Party Help
+IncBuild.Make.Release=1
+IncBuild.Build.Release=1
+IncBuild.Check.Release=0
+IncBuild.MakeUnit.Release=0
+IncBuild.Make.Base=1
+IncBuild.Build.Base=1
+IncBuild.Check.Base=0
+IncBuild.MakeUnit.Base=0
+IncBuild.Make.Debug=1
+IncBuild.Build.Debug=1
+IncBuild.Check.Debug=0
+IncBuild.MakeUnit.Debug=0
 
 [Zipping]
 Enabled=1
 ZipFile=D:\Documents\Web Page\Zips\3rdPartyIDEHelp.zip
 BasePath=D:\Documents\RAD Studio\
 ExclusionFiles=
+
+[VersionInfo]
+CompanyName=Season's Fall Music
+FileDescription=A RAD Studio IDE Pliug-in for managing and accessing Third Party Help
+FileVersion=1.0.1.159
+InternalName=TPIDEHelp
+LegalCopyright=Season's Fall Music
+LegalTrademarks=Season's Fall Music
+OriginalFilename=TPIDEHelp
+ProductName=TPIDEHelp
+ProductVersion=1.0a
+Comments=A RAD Studio IDE Pliug-in for managing and accessing Third Party Help
 

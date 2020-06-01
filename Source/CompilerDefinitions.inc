@@ -4,9 +4,30 @@
   definition exists it means that that version of the compiler or high is
   available.
 
-  @Version 1.0
-  @Date    16 Sep 2018
   @Author  David Hoyle
+  @Version 1.163
+  @Date    01 Jun 2020
+
+  @license
+
+    3rd Party Help is a RAD Studio IDE plug-in that allows you to easily install
+    additional 3rd Party HTML Help files into the IDE to provide context
+    sensitive help for libraries and components.
+
+    Copyright (C) 2020  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 **)
 
@@ -442,7 +463,7 @@
   {$DEFINE DXE102}
 {$ENDIF}
 
-// Embarcadero Delphi XE10.3 Carnival (Studio 20.0), Version 26, Package version 260
+// Embarcadero Delphi XE10.3 Rio (Studio 20.0), Version 26, Package version 260
 {$IFDEF VER330}
   {$DEFINE D0001}
   {$DEFINE D0002}
@@ -469,6 +490,36 @@
   {$DEFINE DXE101}
   {$DEFINE DXE102}
   {$DEFINE DXE103}
+{$ENDIF}
+
+// Embarcadero Delphi XE10.4 Sydney (Studio 21.0), Version 27, Package version 270
+{$IFDEF VER340}
+  {$DEFINE D0001}
+  {$DEFINE D0002}
+  {$DEFINE D0003}
+  {$DEFINE D0004}
+  {$DEFINE D0005}
+  {$DEFINE D0006}
+  {$DEFINE D0007}
+  {$DEFINE D0008}
+  {$DEFINE D2005}
+  {$DEFINE D2006}
+  {$DEFINE D2007}
+  {$DEFINE D2009}
+  {$DEFINE D2010}
+  {$DEFINE DXE00}
+  {$DEFINE DXE20}
+  {$DEFINE DXE30}
+  {$DEFINE DXE40}
+  {$DEFINE DXE50}
+  {$DEFINE DXE60}
+  {$DEFINE DXE70}
+  {$DEFINE DXE80}
+  {$DEFINE DXE100}
+  {$DEFINE DXE101}
+  {$DEFINE DXE102}
+  {$DEFINE DXE103}
+  {$DEFINE DXE104}
 {$ENDIF}
 
 {$IFNDEF D0001}

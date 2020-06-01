@@ -4,9 +4,30 @@
   options frame to the RAD Studio IDE options dialogue.
 
   @Author  David Hoyle
-  @Version 1.0
-  @Date    13 Oct 2018
-  
+  @Version 1.275
+  @Date    01 Jun 2020
+
+  @license
+
+    3rd Party Help is a RAD Studio IDE plug-in that allows you to easily install
+    additional 3rd Party HTML Help files into the IDE to provide context
+    sensitive help for libraries and components.
+
+    Copyright (C) 2020  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 **)
 Unit TPIDEHelp.AddinOptions;
 
@@ -15,16 +36,17 @@ Interface
 Uses
   ToolsAPI,
   VCL.Forms,
-  TPIDEHelp.Interfaces,
-  TPIDEHelp.IDEOptionsFrame;
+  TPIDEHelp.Interfaces;
 
 Type
   (** A class wihc implements the INTAAddinOptions interface dor adding a frame to the IDEs options
       dialogue. **)
   TTPHelpAddinOptions = Class(TInterfacedObject, IUnknown, INTAAddInOptions)
   Strict Private
-    FFrame             : TframeTPIDEHelpOptions;
+    FFrameClass        : TCustomFrameClass;
+    FFrame             : TCustomFrame;
     FUpdateHelpActions : ITPHelpUpdateHelpAction;
+    FCaption           : String;
   Strict Protected
     Procedure DialogClosed(Accepted: Boolean);
     Procedure FrameCreated(AFrame: TCustomFrame);
@@ -35,7 +57,8 @@ Type
     Function  IncludeInIDEInsight: Boolean;
     Function  ValidateContents: Boolean;
   Public
-    Constructor Create(Const UpdateHelpActions : ITPHelpUpdateHelpAction);
+    Constructor Create(Const CustomFrameCls : TCustomFrameClass; Const strCaption : String;
+      Const UpdateHelpActions : ITPHelpUpdateHelpAction);
   End;
 
 Implementation
@@ -50,13 +73,18 @@ Uses
   @precon  None.
   @postcon Stores a reference to the UpdateHelpAction so they can be rebuilt is the options change.
 
+  @param   CustomFrameCls    as a TCustomFrameClass as a constant
+  @param   strCaption        as a String as a constant
   @param   UpdateHelpActions as an ITPHelpUpdateHelpAction as a constant
 
 **)
-Constructor TTPHelpAddinOptions.Create(Const UpdateHelpActions: ITPHelpUpdateHelpAction);
+Constructor TTPHelpAddinOptions.Create(Const CustomFrameCls : TCustomFrameClass;
+  Const strCaption : String; Const UpdateHelpActions: ITPHelpUpdateHelpAction);
 
 Begin
   Inherited Create;
+  FFrameClass := CustomFrameCls;
+  FCaption := strCaption;
   FUpdateHelpActions := UpdateHelpActions;
 End;
 
@@ -76,7 +104,7 @@ Procedure TTPHelpAddinOptions.DialogClosed(Accepted: Boolean);
 
 Var
   OpsFrame : ITPHelpOptionsFrame;
-  
+
 Begin
   If Accepted Then
     If Supports(FFrame, ITPHelpOptionsFrame, OpsFrame) Then
@@ -102,9 +130,9 @@ Procedure TTPHelpAddinOptions.FrameCreated(AFrame: TCustomFrame);
 
 Var
   OpsFrame : ITPHelpOptionsFrame;
-  
+
 Begin
-  FFrame := AFrame As TframeTPIDEHelpOptions;
+  FFrame := AFrame;
   If Supports(FFrame, ITPHelpOptionsFrame, OpsFrame) Then
     OpsFrame.InitialiseFrame;
 End;
@@ -114,7 +142,7 @@ End;
   This is a getter method for the Area property.
 
   @precon  None.
-  @postcon Returns a null string to tell the IDE to put the below Caption under the 3rd Party items. 
+  @postcon Returns a null string to tell the IDE to put the below Caption under the 3rd Party items.
 
   @return  a String
 
@@ -137,11 +165,8 @@ End;
 **)
 Function TTPHelpAddinOptions.GetCaption: String;
 
-ResourceString
-  strRdPartyHelp = '3rd Party Help';
-
 Begin
-  Result := strRdPartyHelp;
+  Result := FCaption;
 End;
 
 (**
@@ -157,7 +182,7 @@ End;
 Function TTPHelpAddinOptions.GetFrameClass: TCustomFrameClass;
 
 Begin
-  Result := TframeTPIDEHelpOptions;
+  Result := FFrameClass;
 End;
 
 (**
