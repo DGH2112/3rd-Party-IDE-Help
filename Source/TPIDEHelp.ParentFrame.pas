@@ -3,7 +3,7 @@
   This module contains a frame for the root node of the Options frame in the IDE.
 
   @Author  David Hoyle
-  @Version 1.186
+  @Version 1.194
   @Date    01 Jun 2020
 
   @license
@@ -43,6 +43,8 @@ Uses
   Forms,
   Dialogs,
   StdCtrls;
+
+{$INCLUDE CompilerDefinitions.inc}
 
 Type
   (** A class to represent the options frame. **)
@@ -123,12 +125,20 @@ Begin
   lblBADI.Caption := Format(str3rdPartyIDEHelp, [VerInfo.FMajor, VerInfo.FMinor,
     strBugFix[Succ(VerInfo.FBugFix)]]);
   {$IFDEF DEBUG}
-  lblBuild.Caption := Format(strDEBUGBuild, [VerInfo.FMajor, VerInfo.FMinor, VerInfo.FBugFix,
-    VerInfo.FBuild]);
+  lblBuild.Caption := Format(strDEBUGBuild, [
+    VerInfo.FMajor,
+    VerInfo.FMinor,
+    VerInfo.FBugFix,
+    VerInfo.FBuild
+  ]);
   lblBuild.Font.Color := clRed;
   {$ELSE}
-  lblBuild.Caption := Format(strBuild, [VerInfo.iMajor, VerInfo.iMinor, VerInfo.iBugFix,
-    VerInfo.iBuild]);
+  lblBuild.Caption := Format(strBuild, [
+    VerInfo.FMajor,
+    VerInfo.FMinor,
+    VerInfo.FBugFix,
+    VerInfo.FBuild
+  ]);
   {$ENDIF}
   SetLength(strModuleName, MAX_PATH);
   iSize := GetModuleFileName(hInstance, PChar(strModuleName), MAX_PATH);
