@@ -3,7 +3,7 @@
   This module defines an IOTAWizard class for the RAD Studio plug-in.
 
   @Author  David Hoyle
-  @Version 1.178
+  @Version 1.182
   @Date    01 Jun 2020
 
   @license
@@ -12,7 +12,7 @@
     additional 3rd Party HTML Help files into the IDE to provide context
     sensitive help for libraries and components.
 
-    Copyright (C) 2020  David Hoyle (https://github.com/DGH2112/Delphi-IDE-Explorer)
+    Copyright (C) 2020  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
