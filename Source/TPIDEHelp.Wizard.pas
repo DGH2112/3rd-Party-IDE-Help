@@ -3,8 +3,8 @@
   This module defines an IOTAWizard class for the RAD Studio plug-in.
 
   @Author  David Hoyle
-  @Version 1.099
-  @Date    30 May 2020
+  @Version 1.178
+  @Date    01 Jun 2020
 
   @license
 
@@ -42,6 +42,7 @@ Type
   Strict Private
     FAboutBox                : Integer;
     FAddinOptions            : INTAAddinOptions;
+    FAddinParent             : INTAAddinOptions;
     FUpdateCustomHelpActions : ITPHelpUpdateHelpAction;
   Strict Protected
     Procedure Execute;
@@ -72,7 +73,8 @@ Uses
   TPIDEHelp.SplashScreen,
   TPIDEHelp.AboutBox, 
   TPIDEHelp.AddinOptions,
-  TPIDEHelp.UpdateCustomHelpActions;
+  TPIDEHelp.UpdateCustomHelpActions,
+  TPIDEHelp.IDEOptionsFrame, TPIDEHelp.ParentFrame;
 
 (**
 
@@ -140,6 +142,10 @@ End;
 **)
 Constructor TTPIDEHelpWizard.Create;
 
+ResourceString
+  strRdPartyHelpOptions = '3rd Party Help.Options';
+  strRdPartyHelp = '3rd Party Help';
+
 Var
   EOS : INTAEnvironmentOptionsServices;
 
@@ -147,9 +153,20 @@ Begin
   TTPHelpSplashScreen.AddSplashScreenItem;
   FAboutBox := TTPHelpAboutBox.AddAboutBox;
   FUpdateCustomHelpActions := TTPHelpUpdateCustomHelpActions.Create;
-  FAddinOptions := TTPHelpAddinOptions.Create(FUpdateCustomHelpActions);
+  FAddinOptions := TTPHelpAddinOptions.Create(
+    TframeTPIDEHelpOptions,
+    strRdPartyHelpOptions,
+    FUpdateCustomHelpActions
+  );
   If Supports(BorlandIDEServices, INTAEnvironmentOptionsServices, EOS) Then
     EOS.RegisterAddInOptions(FAddinOptions);
+  FAddinParent := TTPHelpAddinOptions.Create(
+    TfmTPIDEHelparentFrame,
+    strRdPartyHelp,
+    FUpdateCustomHelpActions
+  );
+  If Supports(BorlandIDEServices, INTAEnvironmentOptionsServices, EOS) Then
+    EOS.RegisterAddInOptions(FAddinParent);
 End;
 
 (**
@@ -166,6 +183,9 @@ Var
   EOS : INTAEnvironmentOptionsServices;
 
 Begin
+  If Supports(BorlandIDEServices, INTAEnvironmentOptionsServices, EOS) Then
+    EOS.UnregisterAddInOptions(FAddinParent);
+  FAddinParent := Nil;
   If Supports(BorlandIDEServices, INTAEnvironmentOptionsServices, EOS) Then
     EOS.UnregisterAddInOptions(FAddinOptions);
   FAddinOptions := Nil;
