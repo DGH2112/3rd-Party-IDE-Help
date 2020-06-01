@@ -3,8 +3,29 @@
   This module defines an IOTAWizard class for the RAD Studio plug-in.
 
   @Author  David Hoyle
-  @Version 1.0
-  @Date    13 Oct 2018
+  @Version 1.182
+  @Date    01 Jun 2020
+
+  @license
+
+    3rd Party Help is a RAD Studio IDE plug-in that allows you to easily install
+    additional 3rd Party HTML Help files into the IDE to provide context
+    sensitive help for libraries and components.
+
+    Copyright (C) 2020  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
+
+    This program is free software: you can redistribute it and/or modify
+    it under the terms of the GNU General Public License as published by
+    the Free Software Foundation, either version 3 of the License, or
+    (at your option) any later version.
+
+    This program is distributed in the hope that it will be useful,
+    but WITHOUT ANY WARRANTY; without even the implied warranty of
+    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+    GNU General Public License for more details.
+
+    You should have received a copy of the GNU General Public License
+    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 **)
 Unit TPIDEHelp.Wizard;
@@ -21,6 +42,7 @@ Type
   Strict Private
     FAboutBox                : Integer;
     FAddinOptions            : INTAAddinOptions;
+    FAddinParent             : INTAAddinOptions;
     FUpdateCustomHelpActions : ITPHelpUpdateHelpAction;
   Strict Protected
     Procedure Execute;
@@ -51,7 +73,8 @@ Uses
   TPIDEHelp.SplashScreen,
   TPIDEHelp.AboutBox, 
   TPIDEHelp.AddinOptions,
-  TPIDEHelp.UpdateCustomHelpActions;
+  TPIDEHelp.UpdateCustomHelpActions,
+  TPIDEHelp.IDEOptionsFrame, TPIDEHelp.ParentFrame;
 
 (**
 
@@ -119,6 +142,10 @@ End;
 **)
 Constructor TTPIDEHelpWizard.Create;
 
+ResourceString
+  strRdPartyHelpOptions = '3rd Party Help.Options';
+  strRdPartyHelp = '3rd Party Help';
+
 Var
   EOS : INTAEnvironmentOptionsServices;
 
@@ -126,9 +153,20 @@ Begin
   TTPHelpSplashScreen.AddSplashScreenItem;
   FAboutBox := TTPHelpAboutBox.AddAboutBox;
   FUpdateCustomHelpActions := TTPHelpUpdateCustomHelpActions.Create;
-  FAddinOptions := TTPHelpAddinOptions.Create(FUpdateCustomHelpActions);
+  FAddinOptions := TTPHelpAddinOptions.Create(
+    TframeTPIDEHelpOptions,
+    strRdPartyHelpOptions,
+    FUpdateCustomHelpActions
+  );
   If Supports(BorlandIDEServices, INTAEnvironmentOptionsServices, EOS) Then
     EOS.RegisterAddInOptions(FAddinOptions);
+  FAddinParent := TTPHelpAddinOptions.Create(
+    TfmTPIDEHelparentFrame,
+    strRdPartyHelp,
+    FUpdateCustomHelpActions
+  );
+  If Supports(BorlandIDEServices, INTAEnvironmentOptionsServices, EOS) Then
+    EOS.RegisterAddInOptions(FAddinParent);
 End;
 
 (**
@@ -145,6 +183,9 @@ Var
   EOS : INTAEnvironmentOptionsServices;
 
 Begin
+  If Supports(BorlandIDEServices, INTAEnvironmentOptionsServices, EOS) Then
+    EOS.UnregisterAddInOptions(FAddinParent);
+  FAddinParent := Nil;
   If Supports(BorlandIDEServices, INTAEnvironmentOptionsServices, EOS) Then
     EOS.UnregisterAddInOptions(FAddinOptions);
   FAddinOptions := Nil;

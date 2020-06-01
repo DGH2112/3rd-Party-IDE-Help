@@ -1,13 +1,12 @@
- 3rd Party IDE Help
-====================
+# 3rd Party IDE Help
 
-Author: David Hoyle
+Author:   David Hoyle (davidghoyle@gmail.com / [https://github.com/DGH2112](https://github.com/DGH2112))
 
-Version: 1.0
+Version:  1.0a
 
-Date: 24 Nov 2018
+Date:     01 Jun 2020
 
-Web Page: https://www.davidghoyle.co.uk/WordPress/?page_id=2051
+Web Page: [https://www.davidghoyle.co.uk/WordPress/?page_id=2051](https://www.davidghoyle.co.uk/WordPress/?page_id=2051)
 
 ## Overview
 
@@ -27,6 +26,6 @@ You can only configure HTML CHM files for use with the IDE.
 
 ## Source Code and Binaries
 
-The source code for this project can be downloaded from https://github.com/DGH2112/3rd-Party-IDE-Help.
+The source code for this project can be downloaded from [Git Hub](https://github.com/DGH2112/3rd-Party-IDE-Help).
 
 You can download binaries for this project if you don't want to compile it yourself from the web page: [3rd Party IDE Help](https://www.davidghoyle.co.uk/WordPress/?page_id=2051).

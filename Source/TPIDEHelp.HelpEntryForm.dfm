@@ -3,8 +3,8 @@ object frmHelpEntry: TfrmHelpEntry
   Top = 0
   BorderIcons = [biSystemMenu]
   Caption = 'Help Entry'
-  ClientHeight = 105
-  ClientWidth = 624
+  ClientHeight = 101
+  ClientWidth = 638
   Color = clBtnFace
   Constraints.MaxHeight = 140
   Constraints.MinHeight = 140
@@ -21,14 +21,15 @@ object frmHelpEntry: TfrmHelpEntry
   object pnlThemeFudge: TPanel
     Left = 0
     Top = 0
-    Width = 624
-    Height = 105
+    Width = 638
+    Height = 101
     Align = alClient
     BevelOuter = bvNone
     TabOrder = 0
+    ExplicitWidth = 624
     DesignSize = (
-      624
-      105)
+      638
+      101)
     object lblName: TLabel
       Left = 8
       Top = 11
@@ -40,71 +41,74 @@ object frmHelpEntry: TfrmHelpEntry
     object lblFilename: TLabel
       Left = 8
       Top = 41
-      Width = 52
+      Width = 66
       Height = 16
       Anchors = [akLeft, akTop, akRight]
       Caption = '&Filename'
       FocusControl = edtFilename
+      ExplicitWidth = 52
     end
     object edtName: TEdit
       Left = 80
       Top = 8
-      Width = 536
+      Width = 550
       Height = 24
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 0
       Text = 'edtName'
+      ExplicitWidth = 536
     end
     object edtFilename: TEdit
       Left = 80
       Top = 38
-      Width = 455
+      Width = 459
       Height = 24
       Anchors = [akLeft, akTop, akRight]
       TabOrder = 1
       Text = 'edtFilename'
+      ExplicitWidth = 445
     end
     object btnOK: TButton
-      Left = 460
+      Left = 454
       Top = 72
-      Width = 75
+      Width = 85
       Height = 25
       Anchors = [akRight, akBottom]
       Caption = '&OK'
       Default = True
       ImageIndex = 14
-      ImageMargins.Left = 5
       Images = ilButtons
       ModalResult = 1
       TabOrder = 3
       OnClick = btnOKClick
+      ExplicitLeft = 440
     end
     object btnCancel: TButton
-      Left = 541
+      Left = 545
       Top = 72
-      Width = 75
+      Width = 85
       Height = 25
       Anchors = [akRight, akBottom]
       Cancel = True
       Caption = '&Cancel'
       ImageIndex = 0
-      ImageMargins.Left = 5
       Images = ilButtons
       ModalResult = 2
       TabOrder = 4
+      ExplicitLeft = 531
     end
     object btnBrowse: TButton
-      Left = 541
+      Left = 545
       Top = 38
-      Width = 75
+      Width = 85
       Height = 25
       Anchors = [akTop, akRight]
       Caption = '&Browse'
       ImageIndex = 20
-      ImageMargins.Left = 5
       Images = ilButtons
       TabOrder = 2
       OnClick = btnBrowseClick
+      ExplicitLeft = 531
     end
   end
   object ilButtons: TImageList
