@@ -47,7 +47,7 @@ Uses
   Vcl.Dialogs,
   Vcl.StdCtrls,
   Vcl.ImgList,
-  Vcl.ExtCtrls, System.ImageList;
+  Vcl.ExtCtrls;
 
 Type
   (** A form class to allow the editing of a CHM file. **)

@@ -47,7 +47,7 @@ Uses
   Vcl.StdCtrls,
   Vcl.ComCtrls,
   Vcl.ImgList,
-  TPIDEHelp.Interfaces, System.ImageList;
+  TPIDEHelp.Interfaces;
 
 Type
   (** A frame to contain the plug-ins options in the IDE options dialogue. **)
