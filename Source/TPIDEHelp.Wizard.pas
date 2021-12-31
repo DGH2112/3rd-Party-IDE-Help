@@ -3,8 +3,8 @@
   This module defines an IOTAWizard class for the RAD Studio plug-in.
 
   @Author  David Hoyle
-  @Version 1.182
-  @Date    01 Jun 2020
+  @Version 1.186
+  @Date    31 Dec 2021
 
   @license
 
@@ -37,7 +37,7 @@ Uses
   TPIDEHelp.Interfaces;
 
 Type
-  (** A class that implements the IOTAWizard interface for registering a wizard plugin with the IDE. **)
+  (** A class that implements the IOTAWizard interface for registering a wizard plug-in with the IDE. **)
   TTPIDEHelpWizard = Class(TInterfacedObject, IUnknown, IOTANotifier, IOTAWizard)
   Strict Private
     FAboutBox                : Integer;
@@ -82,7 +82,7 @@ Uses
   plug-in DLL.
 
   @precon  None.
-  @postcon Creates an nistance of the 3rd Party Help plug-in wizard.
+  @postcon Creates an instance of the 3rd Party Help plug-in wizard.
 
   @nocheck MissingCONSTInParam
   @nohint  Terminate 
@@ -134,7 +134,7 @@ End;
 
 (**
 
-  A constructor for the TTPHelpWizard class.
+  A constructor for the TTPIDEHelpWizard class.
 
   @precon  None.
   @postcon Adds a splash screen entry to the IDE.
@@ -225,10 +225,10 @@ End;
 
 (**
 
-  This is a getter method for the ISString property.
+  This is a getter method for the ID String property.
 
   @precon  None.
-  @postcon Returns a unqiue string identifier for the plug-in.
+  @postcon Returns a unique string identifier for the plug-in.
 
   @return  a String
 
@@ -236,7 +236,7 @@ End;
 Function TTPIDEHelpWizard.GetIDString: String;
 
 ResourceString
-  strDGHSeasonFallThirdPartyHelp = 'DGH.Season''s Fall.Third Party Help';
+  strDGHSeasonFallThirdPartyHelp = 'David Hoyle.Third Party Help';
 
 Begin
   Result := strDGHSeasonFallThirdPartyHelp;
@@ -266,7 +266,7 @@ End;
   This is a getter method for the State property.
 
   @precon  None.
-  @postcon Returns a set containing wsEnabled for the plug-in.
+  @postcon Returns a set containing Enabled for the plug-in.
 
   @return  a TWizardState
 

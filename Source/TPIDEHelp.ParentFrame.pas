@@ -3,8 +3,8 @@
   This module contains a frame for the root node of the Options frame in the IDE.
 
   @Author  David Hoyle
-  @Version 1.194
-  @Date    01 Jun 2020
+  @Version 1.195
+  @Date    31 Dec 2021
 
   @license
 
@@ -70,7 +70,7 @@ Uses
 
 (**
 
-  This method intialises the frame with build information.
+  This method initialises the frame with build information.
 
   @precon  None.
   @postcon The frame is initialised.
