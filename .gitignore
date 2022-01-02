@@ -9,3 +9,6 @@ DCUs/
 .watch
 *.dsk
 *.res
+*.map
+*.dct
+*.drc

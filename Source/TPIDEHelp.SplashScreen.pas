@@ -3,8 +3,8 @@
   This module contains code to create a splash screen entry on the RAD Studio IDE splash screen.
 
   @Author  David Hoyle
-  @Version 1.100
-  @Date    01 Jun 2020
+  @Version 1.233
+  @Date    31 Dec 2021
 
   @license
 
@@ -40,11 +40,17 @@ Type
   
 Implementation
 
+{$INCLUDE CompilerDefinitions.inc}
+
 Uses
   ToolsAPI,
   System.SysUtils,
   VCL.Forms,
+  {$IFDEF RS110}
+  VCL.Graphics,
+  {$ELSE}
   WinAPI.Windows,
+  {$ENDIF RS110}
   TPIDEHelp.Functions,
   TPIDEHelp.ResourceStrings;
 
@@ -53,7 +59,7 @@ Uses
   This method adds a splash screen entry to the RAD Studio IDE splash screen.
 
   @precon  None.
-  @postcon The entry is added to the splashs screen.
+  @postcon The entry is added to the splash screen.
 
 **)
 Class Procedure TTPHelpSplashScreen.AddSplashScreenItem();
@@ -67,21 +73,36 @@ Const
 
 Var
   SSS : IOTASplashScreenServices;
+  {$IFDEF RS110}
+  SplashScreenBitMap : TBitMap;
+  {$ELSE}
   bmSplashScreen : HBITMAP;
-  recVersionInfo : TTPHVersionInfo;
+  {$ENDIF RS110}
+  recVerInfo : TTPHVersionInfo;
 
 Begin
-  bmSplashScreen := LoadBitmap(hInstance, strTPHelpSplashScreen);
-  TTPHelpFunction.BuildNumber(recVersionInfo);
+  TTPHelpFunction.BuildNumber(recVerInfo);
   If Supports(SplashScreenServices, IOTASplashScreenServices, SSS) Then
-    SSS.AddPluginBitmap(
-      Format(str3rdPartyIDEHelpFor, [recVersionInfo.FMajor, recVersionInfo.FMinor,
-        strRevisions[Succ(recVersionInfo.FBugFix)], Application.Title]),
-      bmSplashScreen,
-      {$IFDEF DEBUG} True {$ELSE} False {$ENDIF},
-      Format(strSplashScreenBuild, [recVersionInfo.FMajor, recVersionInfo.FMinor, recVersionInfo.FBugFix,
-        recVersionInfo.FBuild])
-    );
+    Begin
+      {$IFDEF RS110}
+      SplashScreenBitMap := TBitMap.Create;
+      SplashScreenBitMap.LoadFromResourceName(hInstance, strTPHelpSplashScreen);
+      SSS.AddPluginBitmap(
+        Format(str3rdPartyIDEHelpFor, [recVerInfo.FMajor, recVerInfo.FMinor, strRevisions[Succ(recVerInfo.FBugFix)], Application.Title]),
+        [SplashScreenBitMap],
+        {$IFDEF DEBUG} True {$ELSE} False {$ENDIF},
+        Format(strSplashScreenBuild, [recVerInfo.FMajor, recVerInfo.FMinor, recVerInfo.FBugFix, recVerInfo.FBuild])
+      );
+      {$ELSE}
+      bmSplashScreen := LoadBitmap(hInstance, strTPHelpSplashScreen);
+      SSS.AddPluginBitmap(
+        Format(str3rdPartyIDEHelpFor, [recVerInfo.FMajor, recVerInfo.FMinor, strRevisions[Succ(recVerInfo.FBugFix)], Application.Title]),
+        bmSplashScreen,
+        {$IFDEF DEBUG} True {$ELSE} False {$ENDIF},
+        Format(strSplashScreenBuild, [recVerInfo.FMajor, recVerInfo.FMinor, recVerInfo.FBugFix, recVerInfo.FBuild])
+      );
+      {$ENDIF RS110}
+    End;
 End;
 
 End.

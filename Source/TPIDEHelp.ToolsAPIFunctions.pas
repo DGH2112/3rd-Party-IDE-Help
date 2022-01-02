@@ -3,8 +3,8 @@
   This module contains Open Tools API utility functions for use throughout this application.
 
   @Author  David Hoyle
-  @Version 1.098
-  @Date    01 Jun 2020
+  @Version 1.102
+  @Date    31 Dec 2021
 
   @license
 
@@ -66,17 +66,17 @@ Uses
 **)
 Class Procedure TTPHelpToolsAPIFunctions.ApplyThemeToComponent(Const AComponent: TComponent);
 
-{$IFDEF DXE102}
+{$IFDEF RS102}
 Var
   ITS: IOTAIDEThemingServices250;
-{$ENDIF}
+{$ENDIF RS102}
 
 Begin
-  {$IFDEF DXE102}
+  {$IFDEF RS102}
   If Supports(BorlandIDEServices, IOTAIDEThemingServices250, ITS) Then
     If ITS.IDEThemingEnabled Then
       ITS.ApplyTheme(AComponent);
-  {$ENDIF}
+  {$ENDIF RS102}
 End;
 
 (**
@@ -84,7 +84,7 @@ End;
   This method registers the given form with the IDE form theming is theming is available and enabled.
 
   @precon  None.
-  @postcon The given form class is regsitered with the IDE for theming if themign is available and
+  @postcon The given form class is registered with the IDE for theming if theming is available and
            enabled.
 
   @param   FormCls as a TCustomFormClass as a constant
@@ -92,25 +92,25 @@ End;
 **)
 Class Procedure TTPHelpToolsAPIFunctions.RegisterFormForTheming(Const FormCls: TCustomFormClass);
 
-{$IFDEF DXE102}
+{$IFDEF RS102}
 Var
   ITS: IOTAIDEThemingServices250;
-{$ENDIF}
+{$ENDIF RS102}
 
 Begin
-  {$IFDEF DXE102}
+  {$IFDEF RS102}
   If Supports(BorlandIDEServices, IOTAIDEThemingServices250, ITS) Then
     If ITS.IDEThemingEnabled Then
       ITS.RegisterFormClass(FormCls);
-  {$ENDIF}
+  {$ENDIF RS102}
 End;
 
 (**
 
-  This method returns the themed system colour for the given colour IF theming is avaiulable and enabled.
+  This method returns the themed system colour for the given colour IF theming is available and enabled.
 
   @precon  None.
-  @postcon The themd colour is returned if theming is available and enabled.
+  @postcon The themed colour is returned if theming is available and enabled.
 
   @param   iColour as a TColor as a constant
   @return  a TColor
@@ -118,18 +118,18 @@ End;
 **)
 Class Function TTPHelpToolsAPIFunctions.ThemeColour(Const iColour: TColor): TColor;
 
-{$IFDEF DXE102}
+{$IFDEF RS102}
 Var
   ITS: IOTAIDEThemingServices250;
-{$ENDIF}
+{$ENDIF RS102}
 
 Begin
   Result := iColour;
-  {$IFDEF DXE102}
+  {$IFDEF RS102}
   If Supports(BorlandIDEServices, IOTAIDEThemingServices, ITS) Then
     If ITS.IDEThemingEnabled Then
       Result := ITS.StyleServices.GetSystemColor(iColour);
-  {$ENDIF}
+  {$ENDIF RS102}
 End;
 
 End.
