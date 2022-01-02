@@ -3,8 +3,8 @@
   This module contains code for adding and remove an about box entry in the RAD Studio IDE.
 
   @Author  David Hoyle
-  @Version 1.099
-  @Date    01 Jun 2020
+  @Version 1.211
+  @Date    02 Jan 2022
 
   @license
 
@@ -41,11 +41,17 @@ Type
 
 Implementation
 
+{$INCLUDE CompilerDefinitions.inc}
+
 Uses
   ToolsAPI,
   System.SysUtils,
   VCL.Forms,
+  {$IFDEF RS110}
+  VCL.Graphics,
+  {$ELSE}
   WinAPI.Windows,
+  {$ENDIF RS110}
   TPIDEHelp.Functions,
   TPIDEHelp.ResourceStrings;
 
@@ -69,23 +75,47 @@ ResourceString
 
 Var
   ABS : IOTAAboutBoxServices;
+  {$IFDEF RS110}
+  AboutBoxBitmap : TBitMap;
+  {$ELSE}
   bmAboutBox : HBITMAP;
+  {$ENDIF RS110}
   recVersionInfo: TTPHVersionInfo;
   
 Begin
   Result := -1;
-  bmAboutBox := LoadBitmap(hInstance, strTPHelpSplashScreen);
   TTPHelpFunction.BuildNumber(recVersionInfo);
   If Supports(BorlandIDEServices, IOTAAboutBoxServices, ABS) Then
-    Result := ABS.AddPluginInfo(
-      Format(str3rdPartyIDEHelpFor, [recVersionInfo.FMajor, recVersionInfo.FMinor,
-        strRevisions[Succ(recVersionInfo.FBugFix)], Application.Title]),
-      strAboutBoxDescription,
-      bmAboutBox,
-      {$IFDEF DEBUG} True {$ELSE} False {$ENDIF},
-      Format(strSplashScreenBuild, [recVersionInfo.FMajor, recVersionInfo.FMinor, recVersionInfo.FBugFix,
-        recVersionInfo.FBuild])
-    );
+    Begin
+      {$IFDEF RS110}
+      AboutBoxBitmap := TBitMap.Create();
+      Try
+        AboutBoxBitmap.LoadFromResourceName(hInstance, strTPHelpSplashScreen);
+        Result := ABS.AddPluginInfo(
+          Format(str3rdPartyIDEHelpFor, [recVersionInfo.FMajor, recVersionInfo.FMinor,
+            strRevisions[Succ(recVersionInfo.FBugFix)], Application.Title]),
+          strAboutBoxDescription,
+          [AboutBoxBitmap],
+          {$IFDEF DEBUG} True {$ELSE} False {$ENDIF},
+          Format(strSplashScreenBuild, [recVersionInfo.FMajor, recVersionInfo.FMinor, recVersionInfo.FBugFix,
+            recVersionInfo.FBuild])
+        );
+      Finally
+        AboutBoxBitmap.Free;
+      End;
+      {$ELSE}
+      bmAboutBox := LoadBitmap(hInstance, strTPHelpSplashScreen);
+      Result := ABS.AddPluginInfo(
+        Format(str3rdPartyIDEHelpFor, [recVersionInfo.FMajor, recVersionInfo.FMinor,
+          strRevisions[Succ(recVersionInfo.FBugFix)], Application.Title]),
+        strAboutBoxDescription,
+        bmAboutBox,
+        {$IFDEF DEBUG} True {$ELSE} False {$ENDIF},
+        Format(strSplashScreenBuild, [recVersionInfo.FMajor, recVersionInfo.FMinor, recVersionInfo.FBugFix,
+          recVersionInfo.FBuild])
+      );
+      {$ENDIF RS110}
+    End;
 End;
 
 (**
