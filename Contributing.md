@@ -49,4 +49,4 @@ This plug-in provides a optiosn dialogue that allows you to add, update and remo
 
 regards
 
-David Hoyle Jun 2020.
+David Hoyle Jan 2022.
