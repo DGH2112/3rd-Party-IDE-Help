@@ -3,8 +3,8 @@
   This module contains a frame for presenting the 3rd Part Help that is installed in the IDE.
 
   @Author  David Hoyle
-  @Version 1.129
-  @Date    01 Jun 2020
+  @Version 1.132
+  @Date    15 Nov 2023
 
   @license
 
@@ -12,7 +12,7 @@
     additional 3rd Party HTML Help files into the IDE to provide context
     sensitive help for libraries and components.
 
-    Copyright (C) 2020  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
+    Copyright (C) 2023  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ Uses
   Vcl.StdCtrls,
   Vcl.ComCtrls,
   Vcl.ImgList,
-  TPIDEHelp.Interfaces;
+  TPIDEHelp.Interfaces, System.ImageList;
 
 Type
   (** A frame to contain the plug-ins options in the IDE options dialogue. **)
@@ -92,7 +92,7 @@ Uses
   This is an on click event handler for the Add button.
 
   @precon  None.
-  @postcon Promts the user to add a CHM file to the list of files.
+  @postcon Prompts the user to add a CHM file to the list of files.
 
   @param   Sender as a TObject
 
@@ -176,7 +176,7 @@ End;
 
 (**
 
-  A destructor for the TframeTPHelpOptions class.
+  A destructor for the TframeTPIDEHelpOptions class.
 
   @precon  None.
   @postcon Frees the generic collection.
@@ -206,7 +206,7 @@ End;
 
 (**
 
-  This method initialises the frame with 3rd party help items from the RAD Studio regsitry.
+  This method initialises the frame with 3rd party help items from the RAD Studio registry.
 
   @precon  None.
   @postcon The list view is populates with help items.
@@ -221,10 +221,10 @@ End;
 
 (**
 
-  This is an on CustomDraweItem for the Help listview.
+  This is an on Custom Draw Item for the Help list view.
 
   @precon  None.
-  @postcon Rendered and Help files that cannot be found in GrayText.
+  @postcon Rendered and Help files that cannot be found in Grey Text.
 
   @param   Sender      as a TCustomListView
   @param   Item        as a TListItem
@@ -249,10 +249,10 @@ End;
 
 (**
 
-  This is an on select item event handler for the listview.
+  This is an on select item event handler for the list view.
 
   @precon  None.
-  @postcon Updates the enalbed proprty of the Edit and Delete buttons.
+  @postcon Updates the enabled property of the Edit and Delete buttons.
 
   @param   Sender   as a TObject
   @param   Item     as a TListItem
@@ -271,7 +271,7 @@ End;
   This method populates the list view with the information in the generic collection.
 
   @precon  None.
-  @postcon the listview is populated with the contents of the generic collection.
+  @postcon the list view is populated with the contents of the generic collection.
 
 **)
 Procedure TframeTPIDEHelpOptions.PopulateListView;

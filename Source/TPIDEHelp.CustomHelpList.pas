@@ -3,8 +3,8 @@
   This module encapsulates the Custom Help list for use through the application.
 
   @Author  David Hoyle
-  @Version 1.098
-  @Date    01 Jun 2020
+  @Version 1.100
+  @Date    15 Nov 2023
 
   @license
 
@@ -12,7 +12,7 @@
     additional 3rd Party HTML Help files into the IDE to provide context
     sensitive help for libraries and components.
 
-    Copyright (C) 2020  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
+    Copyright (C) 2023  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -38,7 +38,7 @@ Uses
   TPIDEHelp.Interfaces;
 
 Type
-  (** A class whch implemets the ITPHCustomHelpList interface for managing th list of Custom IDE Helps
+  (** A class which implements the ITPHCustomHelpList interface for managing the list of Custom IDE Helps
       files. **)
   TTPHCustomHelpList = Class(TInterfacedObject, ITPHCustomHelpList)
   Strict Private
@@ -87,17 +87,17 @@ Uses
 Const
   (** A constant for the registry location of the IDEs 3rd party help. **)
   strHelpRegKey = 'Software\Embarcadero\%s\%s\Help';
-  (** A constant for the custom 2td party HTML file entries. **)
+  (** A constant for the custom 3rd party HTML file entries. **)
   strHTMLHelpFiles = 'HTMLHelp1Files';
   (** A constant for the RAD Studio IDE base directory environment variable. **)
   strBDSEnviroVar = 'BDS';
 
 (**
 
-  A constructor for the THelpRecord class.
+  A constructor for the TTPHHelpRecord class.
 
   @precon  None.
-  @postcon Initalises the record.
+  @postcon Initialises the record.
 
   @param   strName     as a String as a constant
   @param   strFilename as a String as a constant
@@ -119,7 +119,7 @@ End;
   This method adds a third party help item to the collection.
 
   @precon  None.
-  @postcon The third party help is added to the aollection - no checks are made to ensure it is unique.
+  @postcon The third party help is added to the collection - no checks are made to ensure it is unique.
 
   @param   strName     as a String as a constant
   @param   strFilename as a String as a constant
@@ -153,7 +153,7 @@ End;
   This method marks the named custom help for deletion.
 
   @precon  None.
-  @postcon The custom help (if found) is marked fo deletion.
+  @postcon The custom help (if found) is marked for deletion.
 
   @param   strName as a String as a constant
 
@@ -221,7 +221,7 @@ End;
   This is a getter method for the Count property.
 
   @precon  None.
-  @postcon Returns the count of the third party custom help files ONLY (exc IDE help).
+  @postcon Returns the count of the third party custom help files ONLY (excluding IDE help).
 
   @return  an Integer
 
@@ -267,7 +267,7 @@ End;
   and returns that alternate point instead of the standard BDS if found.
 
   @precon  None.
-  @postcon Returns the activty IDEs registration point.
+  @postcon Returns the activity IDEs registration point.
 
   @return  a String
 
@@ -322,7 +322,7 @@ End;
   This is a getter method for the Name property.
 
   @precon  None.
-  @postcon This method attempts to returns the nae of the indexed third party help item.
+  @postcon This method attempts to returns the name of the indexed third party help item.
 
   @param   iIndex as an Integer as a constant
   @return  a String
@@ -333,7 +333,7 @@ Function TTPHCustomHelpList.GetName(Const iIndex: Integer): String;
 Var
   i3rdThirdCount : Integer;
   iHelp: Integer;
-  
+
 Begin
   i3rdThirdCount := -1;
   For iHelp := 0 To FCustomHelp.Count - 1 Do
@@ -350,7 +350,7 @@ End;
 
 (**
 
-  This is a getter method for the UsedHelpNames property.
+  This is a getter method for the Used Help Names property.
 
   @precon  None.
   @postcon returns a reference to a string list of IDE Help names NOT to be used.
@@ -366,7 +366,7 @@ End;
 
 (**
 
-  This method loads the all the IDE help files from the regsitry marking them either IDE or 3rd Party.
+  This method loads the all the IDE help files from the registry marking them either IDE or 3rd Party.
 
   @precon  None.
   @postcon All the help file are loaded into the list.

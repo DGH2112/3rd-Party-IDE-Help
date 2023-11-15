@@ -3,8 +3,8 @@
   This module contains code for adding and remove an about box entry in the RAD Studio IDE.
 
   @Author  David Hoyle
-  @Version 1.211
-  @Date    02 Jan 2022
+  @Version 1.212
+  @Date    15 Nov 2023
 
   @license
 
@@ -12,7 +12,7 @@
     additional 3rd Party HTML Help files into the IDE to provide context
     sensitive help for libraries and components.
 
-    Copyright (C) 2020  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
+    Copyright (C) 2023  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

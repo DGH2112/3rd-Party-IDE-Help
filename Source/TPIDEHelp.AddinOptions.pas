@@ -1,11 +1,11 @@
 (**
-  
+
   This module contains a class which implements the INTAAddinOptions interface so that we can add an
   options frame to the RAD Studio IDE options dialogue.
 
   @Author  David Hoyle
-  @Version 1.275
-  @Date    01 Jun 2020
+  @Version 1.276
+  @Date    15 Nov 2023
 
   @license
 
@@ -13,7 +13,7 @@
     additional 3rd Party HTML Help files into the IDE to provide context
     sensitive help for libraries and components.
 
-    Copyright (C) 2020  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
+    Copyright (C) 2023  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -39,7 +39,7 @@ Uses
   TPIDEHelp.Interfaces;
 
 Type
-  (** A class wihc implements the INTAAddinOptions interface dor adding a frame to the IDEs options
+  (** A class which implements the INTAAddinOptions interface for adding a frame to the IDEs options
       dialogue. **)
   TTPHelpAddinOptions = Class(TInterfacedObject, IUnknown, INTAAddInOptions)
   Strict Private
@@ -71,7 +71,7 @@ Uses
   A constructor for the TTPHelpAddinOptions class.
 
   @precon  None.
-  @postcon Stores a reference to the UpdateHelpAction so they can be rebuilt is the options change.
+  @postcon Stores a reference to the Update Help Action so they can be rebuilt is the options change.
 
   @param   CustomFrameCls    as a TCustomFrameClass as a constant
   @param   strCaption        as a String as a constant
@@ -171,7 +171,7 @@ End;
 
 (**
 
-  This is a getter method for the FrameClass property.
+  This is a getter method for the Frame Class property.
 
   @precon  None.
   @postcon returns the class of the Frame the IDE should create for our options.
@@ -203,7 +203,7 @@ End;
 
 (**
 
-  This method returns true to signify that the contents of the options frame should be vailable
+  This method returns true to signify that the contents of the options frame should be available
   in the IDE Insight dialogue.
 
   @precon  None.

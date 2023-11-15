@@ -2,11 +2,11 @@
 
 Author:   David Hoyle (davidghoyle@gmail.com / [https://github.com/DGH2112](https://github.com/DGH2112))
 
-Version:  1.1
+Version:  1.2
 
-Date:     02 Jan 2022
+Date:     15 Nov 2023
 
-Web Page: [https://www.davidghoyle.co.uk/WordPress/?page_id=2051](https://www.davidghoyle.co.uk/WordPress/?page_id=2051)
+Web Page: [https://github.com/DGH2112/3rd-Party-IDE-Help](https://github.com/DGH2112/3rd-Party-IDE-Help)
 
 ## GNU GENERAL PUBLIC LICENSE
 

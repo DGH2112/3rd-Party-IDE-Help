@@ -3,8 +3,8 @@
   This module contains interfaces to be used through the application.
 
   @Author  David Hoyle
-  @Version 1.099
-  @Date    01 Jun 2020
+  @Version 1.100
+  @Date    15 Nov 2023
 
   @license
 
@@ -12,7 +12,7 @@
     additional 3rd Party HTML Help files into the IDE to provide context
     sensitive help for libraries and components.
 
-    Copyright (C) 2020  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
+    Copyright (C) 2023  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -63,12 +63,12 @@ Type
     (**
       This method returns a string list of IDE Help names already used.
       @precon  None.
-      @postcon A stringlist of used help names are returned.
+      @postcon A string list of used help names are returned.
       @return  a TStringList
     **)
     Property  UsedHelpNames : TStringList Read GetUsedHelpNames;
     (**
-      This method returns the indexed xustom help filename.
+      This method returns the indexed custom help filename.
       @precon  None.
       @postcon The filename of the indexed custom help item
       @param   strName as a String as a constant
@@ -76,7 +76,7 @@ Type
     **)
     Property  Filename[Const strName : String] : String Read GetFilename;
     (**
-      This property returns the number of custom help files in the list (exc the IDEs).
+      This property returns the number of custom help files in the list (excluding the IDEs).
       @precon  None.
       @postcon The number of custom help items in returned.
       @return  an Integer
