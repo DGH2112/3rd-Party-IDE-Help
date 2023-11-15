@@ -14,9 +14,7 @@ object frmHelpEntry: TfrmHelpEntry
   Font.Height = -13
   Font.Name = 'Tahoma'
   Font.Style = []
-  OldCreateOrder = False
   Position = poMainFormCenter
-  PixelsPerInch = 96
   TextHeight = 16
   object pnlThemeFudge: TPanel
     Left = 0
@@ -41,12 +39,11 @@ object frmHelpEntry: TfrmHelpEntry
     object lblFilename: TLabel
       Left = 8
       Top = 41
-      Width = 66
+      Width = 52
       Height = 16
       Anchors = [akLeft, akTop, akRight]
       Caption = '&Filename'
       FocusControl = edtFilename
-      ExplicitWidth = 52
     end
     object edtName: TEdit
       Left = 80

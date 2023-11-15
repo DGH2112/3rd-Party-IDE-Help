@@ -4,8 +4,8 @@
   file to be include in the IDEs list of help file.
 
   @Author  David Hoyle
-  @Version 1.098
-  @Date    01 Jun 2020
+  @Version 1.100
+  @Date    15 Nov 2023
 
   @license
 
@@ -13,7 +13,7 @@
     additional 3rd Party HTML Help files into the IDE to provide context
     sensitive help for libraries and components.
 
-    Copyright (C) 2020  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
+    Copyright (C) 2023  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -47,7 +47,7 @@ Uses
   Vcl.Dialogs,
   Vcl.StdCtrls,
   Vcl.ImgList,
-  Vcl.ExtCtrls;
+  Vcl.ExtCtrls, System.ImageList;
 
 Type
   (** A form class to allow the editing of a CHM file. **)
@@ -126,7 +126,7 @@ Procedure TfrmHelpEntry.btnOKClick(Sender: TObject);
 ResourceString
   strEmptyName = 'You must specify a name for the help file!';
   strCHMNotFound = 'The help file "%s" was not found!';
-  strEbmtName = 'The name "%s" is already used by an existing Embracadero IDE Help file.';
+  strEbmtName = 'The name "%s" is already used by an existing Embarcadero IDE Help file.';
 
 Begin
   If edtName.Text = '' Then

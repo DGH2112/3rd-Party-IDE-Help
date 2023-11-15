@@ -5,8 +5,8 @@
   available.
 
   @Author  David Hoyle
-  @Version 1.232
-  @Date    31 Dec 2021
+  @Version 1.300
+  @Date    15 Nov 2023
 
   @license
 
@@ -14,7 +14,7 @@
     additional 3rd Party HTML Help files into the IDE to provide context
     sensitive help for libraries and components.
 
-    Copyright (C) 2020  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
+    Copyright (C) 2023  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -551,6 +551,38 @@
   {$DEFINE RS103}
   {$DEFINE RS104}
   {$DEFINE RS110}
+{$ENDIF}
+
+// Embarcadero Delphi 12.0 Athens (Studio 23.0), Version 29, Package version 290
+{$IFDEF VER360}
+  {$DEFINE D0001}
+  {$DEFINE D0002}
+  {$DEFINE D0003}
+  {$DEFINE D0004}
+  {$DEFINE D0005}
+  {$DEFINE D0006}
+  {$DEFINE D0007}
+  {$DEFINE D0008}
+  {$DEFINE D2005}
+  {$DEFINE D2006}
+  {$DEFINE D2007}
+  {$DEFINE D2009}
+  {$DEFINE D2010}
+  {$DEFINE DXE00}
+  {$DEFINE DXE20}
+  {$DEFINE DXE30}
+  {$DEFINE DXE40}
+  {$DEFINE DXE50}
+  {$DEFINE DXE60}
+  {$DEFINE DXE70}
+  {$DEFINE DXE80}
+  {$DEFINE RS100}
+  {$DEFINE RS101}
+  {$DEFINE RS102}
+  {$DEFINE RS103}
+  {$DEFINE RS104}
+  {$DEFINE RS110}
+  {$DEFINE RS120}
 {$ENDIF}
 
 {$IFNDEF D0001}
