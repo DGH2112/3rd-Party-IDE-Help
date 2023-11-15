@@ -3,8 +3,8 @@
   This module contains Open Tools API utility functions for use throughout this application.
 
   @Author  David Hoyle
-  @Version 1.102
-  @Date    31 Dec 2021
+  @Version 1.103
+  @Date    15 Nov 2023
 
   @license
 
@@ -12,7 +12,7 @@
     additional 3rd Party HTML Help files into the IDE to provide context
     sensitive help for libraries and components.
 
-    Copyright (C) 2020  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
+    Copyright (C) 2023  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by

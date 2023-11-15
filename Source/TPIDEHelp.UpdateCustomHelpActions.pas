@@ -3,8 +3,8 @@
   This module contains code that manages the actions and menu items for the custom help files.
 
   @Author  David Hoyle
-  @Version 1.099
-  @Date    01 Jun 2020
+  @Version 1.100
+  @Date    15 Nov 2023
 
   @license
 
@@ -12,7 +12,7 @@
     additional 3rd Party HTML Help files into the IDE to provide context
     sensitive help for libraries and components.
 
-    Copyright (C) 2020  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
+    Copyright (C) 2023  David Hoyle (https://github.com/DGH2112/3rd-Party-IDE-Help)
 
     This program is free software: you can redistribute it and/or modify
     it under the terms of the GNU General Public License as published by
@@ -40,7 +40,7 @@ Uses
   TPIDEHelp.Interfaces;
 
 Type
-  (** A class which implements the ITPHelpUpdateJHelpActions interface. **)
+  (** A class which implements the ITPHelpUpdateHelpAction interface. **)
   TTPHelpUpdateCustomHelpActions = Class(TInterfacedObject, ITPHelpUpdateHelpAction)
   Strict Private
     FCustomHelpActions   : TObjectList;
@@ -77,7 +77,7 @@ Uses
   A constructor for the TTPHelpUpdateCustomHelpActions class.
 
   @precon  None.
-  @postcon Creates object lists for the actiosn and menus.
+  @postcon Creates object lists for the actions and menus.
 
 **)
 Constructor TTPHelpUpdateCustomHelpActions.Create;
@@ -97,7 +97,7 @@ End;
   This method creates an action in the IDE for each third party custom help file.
 
   @precon  None.
-  @postcon Actions are created (ine the IDE) for third party help files.
+  @postcon Actions are created (in the IDE) for third party help files.
 
 **)
 Procedure TTPHelpUpdateCustomHelpActions.CreateActions;
@@ -109,7 +109,7 @@ Var
   NS : INTAServices;
   A: TAction;
   iThirdPartyHelp: Integer;
-  
+
 Begin
   If Supports(BorlandIDEServices, INTAServices, NS) Then
     For iThirdPartyHelp := 0 To FCustomHelp.Count - 1 Do
@@ -126,7 +126,7 @@ End;
 
 (**
 
-  This method creates (or re-creates if they already exist) the actioans and menus for the custom Help
+  This method creates (or re-creates if they already exist) the actions and menus for the custom Help
   file under the main Help menu above the about item.
 
   @precon  None.
@@ -147,7 +147,7 @@ End;
 
 (**
 
-  Thie method creates menu items for the third party help actions.
+  This method creates menu items for the third party help actions.
 
   @precon  None.
   @postcon The menu items are created.
@@ -157,7 +157,7 @@ Procedure TTPHelpUpdateCustomHelpActions.CreateMenus;
 
   (**
 
-    This method attempts to find the given meun name in the IDEs main menu.
+    This method attempts to find the given menu name in the IDEs main menu.
 
     @precon  MainMenu must be a a valid instance.
     @postcon The reference to the named menu is returned if found else nil is returned.
